@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head') %>
+    <title>Blog-Page</title>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <div class="container mt-4">
+        <h4><%= blog.title %></h4>
+
+        <div class="container mb-3">
+            <img src="<%= blog.coverimageUrl %>" width="700px">
+        </div>
+
+        <div class="container mb-3">
+            <%= blog.body %>
+        </div>
+
+        <div class="container mb-3 d-flex align-items-center gap-2">
+            <img src="<%= blog.createdBy.profileimageURL %>" width="50px">
+            <%= blog.createdBy.fullname %>
+        </div>
+    </div>
+
+    <h1>Comments (<%= Comments.length %>)</h1>
+
+    <% if (locals.user) { %>
+        <div class="container mt-4">
+            <form method="post" action="/blog/comment/<%= blog._id %>">
+                <div class="mb-3">
+                    <label for="comment" class="form-label">Add a comment</label>
+                    <input type="text" class="form-control" id="comment" name="content">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Comment</button>
+            </form>
+        </div>
+    <% } %>
+
+    <% Comments.forEach(c => { %>
+        <div class="container mt-4 d-flex align-items-center gap-2">
+            <img src="<%= c.userId.profileimageURL %>" width="50px">
+            <%= c.userId.fullname %>
+        </div>
+        <div class="container mt-2">
+            <%= c.content %>
+        </div>
+    <% }) %>
+
+    <%- include('./partials/script') %>
+</body>
+</html>

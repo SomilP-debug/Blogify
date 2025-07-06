@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./partials/head') %>
+    <title>Homepage</title>
+</head>
+<body>
+     <%- include('./partials/nav') %>
+<div class="container mt-3">
+    <div class="row row-cols-3">
+     <% if (blogs) { %>
+          <% blogs.forEach(b => { %>
+            <div class = "cols">
+              <div class="card col" style="width: 18rem;">
+  <img src="<%= b.coverimageUrl %>" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title"><%= b.title %></h5>
+    <a href= "/blog/<%= b._id %>"class="btn btn-primary">Go To Blog</a>
+    </div>
+  </div>
+</div>
+          <% }) %>
+     <% } %>
+     </div>
+     </div>
+
+    <%- include('./partials/script') %>
+</body>
+</html>
