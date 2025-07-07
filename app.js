@@ -15,7 +15,9 @@ const Blog = require("./models/blog");
 
 mongoose.connect(process.env.MONGO_URL).then((r)=>{
     console.log("MONGODB CONNECTED");
-})
+}).catch((err)=>{
+    console.log("ERROR IN MONGODB");
+});
 
 
 app.use(express.static(path.resolve('./public')));
@@ -31,7 +33,7 @@ app.use("/blog",blogroute);
 
 
 app.get("/",async (req,res)=>{
-     const Blogs = await Blog.find({}).sort({"createdAt":-1});
+     const Blogs = await Blog.find({});
 
     res.render("home",{
         user:req.user,
